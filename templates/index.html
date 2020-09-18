@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ page_title }}</title>
+</head>
+<body>
+	<h1>Djando {{page_title}} is working <a href="{% url 'post_create' %}">Add New</a><br><a href="{% url 'post_home' %}">Home</a></h1>
+	{% for obj in object_list %}
+		<a href="{% url 'post_detale' obj.pk %}">{{ obj.title }}</a><br>
+		<a href="{% url 'post_update' %}">{{ obj.content }}</a><br>
+		{{ obj.updated_at }}<br>
+		{{ forloop.counter }}<br>
+		<hr>
+	{% endfor %}
+</body>
+</html>
