@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ quryis.title }} | {{ block.super }}{% endblock head_title %}
+
+{% block content  %}
+<h2>{{ quryis.title }}</h2>
+ <p>{{ quryis.content }}</p>
+ 
+ <a href="{% url 'post_home' %}">Back</a>
+{% endblock content %}

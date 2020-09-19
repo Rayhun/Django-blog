@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>{{ page_title }}</title>
-</head>
-<body>
-	<h1>Djando {{page_title}} is working <a href="{% url 'post_create' %}">Add New</a><a href="{% url 'post_home' %}">Home</a></h1>
-	{% for obj in object_list %}
-		<a href="{% url 'post_detale' obj.pk %}">{{ obj.title }}</a><br>
-		<a href="{% url 'post_update' %}">{{ obj.content }}</a><br>
-		{{ forloop.counter }}<br>
-		<hr>
-	{% endfor %}
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block head_title %}{{ object.title }} | {{ block.super }}{% endblock head_title %}
+
+{% block content  %}
+ <h1>Form</h1>
+<form method='POST' action=''>{% csrf_token %}
+ {{ form.as_p }} 
+ <input type="submit" value="Update Post">
+</form>
+{% endblock content %}

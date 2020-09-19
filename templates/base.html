@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block head_title %}My Blog {% endblock head_title %}</title>
+</head>
+<body>
+	{% if messages %}
+	<div class="messages">
+	<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+	</ul>
+	</div>
+	{% endif %}
+
+	<div class="container">
+		{% block content %}
+
+			<h1>Djando {{page_title}} is working <a href="{% url 'post_create' %}">Add New</a><br><a href="{% url 'post_home' %}">Home</a></h1>
+
+		{% endblock content %}
+	</div>
+	
+	{% for obj in object_list %}
+		<a href="{% url 'post_detail' obj.pk %}">{{ obj.title }}</a><br>
+		{{ obj.content }}<br>
+		{{ obj.updated_at }}<br> 
+		{{ obj.id }}<br>
+		<a href="{% url 'post_update' obj.pk %}">Edit</a>
+		<a href="{% url 'post_delete' obj.pk %}" onclick="confirm('Are you sure want to delete this?')">Delete</a>
+		<hr>
+	{% endfor %}
+</body>
+</html>
