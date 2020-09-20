@@ -1,7 +1,13 @@
+{% load static %}
+{% load humanize %}  <!--  for date and time -->
 <!DOCTYPE html>
 <html>
 <head>
 	<title>{% block head_title %}My Blog {% endblock head_title %}</title>
+	<link rel="stylesheet" href="{% static 'css/base.css' %}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+
 </head>
 <body>
 	{% if messages %}
@@ -14,20 +20,54 @@
 		</div>
 	{% endif %}
 
-	<div class="container">
+<div class="container">
+	<div class="row">
+		<div class="col-12 py-5">
 		{% block content %}
-			<h1>Djando {{page_title}} is working <a href="{% url 'post_create' %}">Add New</a><br><a href="{% url 'post_home' %}">Home</a></h1>
-		{% endblock content %}
+			<h1>Djando {{page_title}}</h1>
+			<a class="btn btn-secondary" href="{% url 'post_create' %}">Add New</a>
+
+
+	<div class="row">
+		{% for obj in object_list %}
+			<div class="col-6"> 
+				<div class="card my-3">
+					<div class="card-body">
+						<p>ID is:  {{ obj.id }}</p>
+						<h5 class="card-title"><a href="{% url 'post_detail' obj.pk %}">{{ obj.title }}</a></h5>
+						<i>{{ obj.updated_at|date:"D M Y" }}</i>
+						<p class="card-text">{{ obj.content|linebreaks|truncatechars:25 }}</p>
+						<a href="{% url 'post_update' obj.pk %}" class="btn btn-primary">Edit</a></a>
+						<a href="{% url 'post_delete' obj.pk %}" onclick="confirm('Are you sure want to delete this?')" class="btn btn-danger">Delete</a></a>
+					</div>
+				</div>
+			</div>
+			{% cycle "" "<div class='col-12'><hr/></div><div class='row'></div>" %}
+		{% endfor %}
+		<div class="pagination">
+			<span class="step-links">
+				{% if object_list.has_previous %}
+					<a href="?page=1">&laquo; first</a>
+					<a href="?page={{ object_list.previous_page_number }}">previous</a>
+				{% endif %}
+		
+				<span class="current">
+					Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+				</span>
+		
+				{% if object_list.has_next %}
+					<a href="?page={{ object_list.next_page_number }}">next</a>
+					<a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
+				{% endif %}
+			</span>
+		</div>
 	</div>
-	
-	{% for obj in object_list %}
-		<a href="{% url 'post_detail' obj.pk %}">{{ obj.title }}</a><br>
-			{{ obj.content }}<br>
-			{{ obj.updated_at }}<br> 
-			{{ obj.id }}<br>
-		<a href="{% url 'post_update' obj.pk %}">Edit</a>
-		<a href="{% url 'post_delete' obj.pk %}" onclick="confirm('Are you sure want to delete this?')">Delete</a>
-		<hr>
-	{% endfor %}
+
+	<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+{% endblock content %}
+</div>
+</div>
+</div>
 </body>
 </html>

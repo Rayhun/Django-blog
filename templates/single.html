@@ -3,7 +3,8 @@
 {% block head_title %}{{ quryis.title }} | {{ block.super }}{% endblock head_title %}
 
 {% block content  %}
-<h2>{{ quryis.title }}</h2>
-<p>{{ quryis.content }}</p>
+<h2 style="display: inline-block;">{{ quryis.title }}</h2>
+<p style="display: inline-block;">{{ quryis.updated_at }}</p>
+<p>{{ quryis.content|linebreaks }}</p>
 <a href="{% url 'post_home' %}">Back</a>
 {% endblock content %}

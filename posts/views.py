@@ -2,6 +2,9 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404 , redirect
 from django.urls import reverse
+from django.core.paginator import Paginator
+
+# from myapp.models import Contact
 
 # Create your views here.
 from .forms import PostForm #  Dont Undestent form.py
@@ -9,13 +12,15 @@ from .models import Post
  
 def post_home(request):
 	instence = Post.objects.all()
-	context = {
-		"object_list":instence,
-		"page_title": "Home Page"
+	instence = Paginator(instence, 4) # Show 25 contacts per page.
+	
+	page_number = request.GET.get('page')
+	instence = instence.get_page(page_number)
+	contex = {
+		'object_list': instence
 	}
-	return render(request,"base.html", context)
-
-
+	return render(request, 'base.html', contex)
+    
 def post_create(request):
 	form = PostForm(request.POST or None)
 	if form.is_valid():
