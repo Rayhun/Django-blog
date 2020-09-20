@@ -1,15 +1,16 @@
 from django.contrib import messages
 from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404 , redirect
+from django.urls import reverse
 
 # Create your views here.
-from .forms import PostForm
+from .forms import PostForm #  Dont Undestent form.py
 from .models import Post
  
 def post_home(request):
-	queryset = Post.objects.all()
+	instence = Post.objects.all()
 	context = {
-		"object_list":queryset,
+		"object_list":instence,
 		"page_title": "Home Page"
 	}
 	return render(request,"base.html", context)
@@ -62,20 +63,16 @@ def post_update(request,pk):
 			instance = form.save(commit=False)
 			instance.save()
 			messages.success(request, "Update Success")
-			# return redirect ('post_home')
 		else:
 			messages.error(request, "Update Not Success")
 		context = {
 			"object":instence,
 			"form":form,
 		}
-		return render(request,"post-update.html", context)
+		return redirect('post_detail', pk=pk)
 
 def post_delete(request,pk):
 	quryis = get_object_or_404(Post,pk=pk)
 	quryis.delete()
 	messages.success(request, "Delete Success")
 	return redirect ('post_home')
-	# context = {
-	# 	"name": "Delete"
-	# }
