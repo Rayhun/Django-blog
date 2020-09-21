@@ -22,7 +22,7 @@ def post_home(request):
 	return render(request, 'base.html', contex)
     
 def post_create(request):
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None, request.FILES or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -37,10 +37,10 @@ def post_create(request):
 
 
 def post_detale(request,pk):
-	quryis = get_object_or_404(Post,pk=pk)
+	instence = get_object_or_404(Post,pk=pk)
 	context = {
-		"name": quryis.title,
-		"quryis":quryis,
+		"name": instence.title,
+		"instence":instence,
 	}
 	return render(request,"single.html", context)
 
@@ -63,7 +63,7 @@ def post_update(request,pk):
 		return render(request,"post-update.html", context)
 	else:	
 		instence = get_object_or_404(Post,pk=pk)
-		form = PostForm(request.POST or None, instance = instence )
+		form = PostForm(request.POST or None , request.FILES or None, instance = instence )
 		if form.is_valid():
 			instance = form.save(commit=False)
 			instance.save()

@@ -10,3 +10,6 @@ h1{
 .pagination span .current{
     color: #777;
 }
+.card-body img{
+    height: 500px;
+}

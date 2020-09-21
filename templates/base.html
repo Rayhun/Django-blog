@@ -36,6 +36,9 @@
 						<p>ID is:  {{ obj.id }}</p>
 						<h5 class="card-title"><a href="{% url 'post_detail' obj.pk %}">{{ obj.title }}</a></h5>
 						<i>{{ obj.updated_at|date:"D M Y" }}</i>
+						{% if obj.image %}
+						<img src="{{ obj.image.url }}" class="w-100">
+						{% endif %}
 						<p class="card-text">{{ obj.content|linebreaks|truncatechars:25 }}</p>
 						<a href="{% url 'post_update' obj.pk %}" class="btn btn-primary">Edit</a></a>
 						<a href="{% url 'post_delete' obj.pk %}" onclick="confirm('Are you sure want to delete this?')" class="btn btn-danger">Delete</a></a>
