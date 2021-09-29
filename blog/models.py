@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.deletion import SET_NULL
+from django.db.models.deletion import CASCADE, SET_NULL
 from django.db.models.fields import CharField
 
 
@@ -32,3 +32,17 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BlogComment(models.Model):
+    post = models.ForeignKey(
+        BlogPost, on_delete=SET_NULL, related_name='blog', null=True
+    )
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    mobile = models.CharField(max_length=25, blank=True)
+    website = models.URLField()
+    message = models.TextField()
+
+    def __str__(self):
+        return self.name
