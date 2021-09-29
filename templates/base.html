@@ -1,76 +1,211 @@
 {% load static %}
-{% load humanize %}  <!--  for date and time -->
 <!DOCTYPE html>
-<html>
-<head>
-	<title>{% block head_title %}My Blog {% endblock head_title %}</title>
-	<link rel="stylesheet" href="{% static 'css/base.css' %}">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <title>Lifestyle Blog || Blogar - Personal Blog Template</title>
+        <meta name="robots" content="noindex, follow" />
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.png' %}" />
 
+        <!-- CSS
+    ============================================ -->
 
-</head>
-<body>
-	{% if messages %}
-		<div class="messages">
-			<ul class="messages">
-				{% for message in messages %}
-					<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-				{% endfor %}
-			</ul>
-		</div>
-	{% endif %}
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/vendor/font-awesome.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/vendor/slick.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/vendor/slick-theme.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/vendor/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/plugins/plugins.css' %}" />
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
+    </head>
 
-<div class="container">
-	<div class="row">
-		<div class="col-12 py-5">
-		{% block content %}
-			<h1>Djando {{page_title}}</h1>
-			<a class="btn btn-secondary" href="{% url 'post_create' %}">Add New</a>
+    <body>
+        <div class="main-wrapper">
+            <div class="mouse-cursor cursor-outer"></div>
+            <div class="mouse-cursor cursor-inner"></div>
+            <!-- include Them -->
+            {% include 'them-change.html' %}
+            <!-- Start Header -->
+            <header class="header axil-header header-style-4 header-light header-sticky">
+                <div class="header-bottom">
+                    <div class="container">
+                        <div class="row justify-content-between align-items-center">
+                            <div class="col-xl-8 col-lg-4 col-md-4 col-12">
+                                <div class="wrapper d-block d-sm-flex flex-wrap align-items-center justify-content-center justify-content-md-start">
+                                    <div class="logo">
+                                        <a href="index.html">
+                                            <img class="dark-logo" src="{% static 'assets/images/logo/logo-black.png' %}" alt="Blogar logo" />
+                                            <img class="light-logo" src="{% static 'assets/images/logo/logo-white2.png' %}" alt="Blogar logo" />
+                                        </a>
+                                    </div>
+                                    <div class="mainmenu-wrapper d-none d-xl-block">
+                                        <nav class="mainmenu-nav">
+                                            <!-- Start Mainmanu Nav -->
+                                            <ul class="mainmenu">
+                                                <li class="menu-item-has-children"><a href="{% url 'blog_home' %}">Home</a></li>
+                                                <li><a href="">Lifestyle</a></li>
+                                                <li><a href="">Gadgets</a></li>
+                                            </ul>
+                                            <!-- End Mainmanu Nav -->
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-xl-4 col-lg-8 col-md-8 col-12">
+                                <div class="header-search d-flex flex-wrap align-items-center justify-content-center justify-content-md-end">
+                                    <form class="header-search-form">
+                                        <div class="axil-search form-group">
+                                            <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
+                                            <input type="text" class="form-control" placeholder="Search" />
+                                        </div>
+                                    </form>
+                                    <ul class="metabar-block">
+                                        <li class="icon">
+                                            <a href="#"><i class="fas fa-bookmark"></i></a>
+                                        </li>
+                                        <li class="icon">
+                                            <a href="#"><i class="fas fa-bell"></i></a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="{% static 'assets/images/others/author.png' %}" alt="Author Images" /></a>
+                                        </li>
+                                    </ul>
+                                    <!-- Start Hamburger Menu  -->
+                                    <div class="hamburger-menu d-block d-xl-none">
+                                        <div class="hamburger-inner">
+                                            <div class="icon"><i class="fal fa-bars"></i></div>
+                                        </div>
+                                    </div>
+                                    <!-- End Hamburger Menu  -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <!-- Start Header -->
+            {% block content %} {% endblock content %}
+            
+<!-- Start Footer Area  -->
+<div class="axil-footer-area axil-footer-style-1 bg-color-white">
+    <!-- Start Footer Top Area  -->
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Start Post List  -->
+                    <div class="inner d-flex align-items-center flex-wrap">
+                        <h5 class="follow-title mb--0 mr--20">Follow Us</h5>
+                        <ul class="social-icon color-tertiary md-size justify-content-start">
+                            <li>
+                                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Post List  -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Footer Top Area  -->
 
-
-	<div class="row">
-		{% for obj in object_list %}
-			<div class="col-6"> 
-				<div class="card my-3">
-					<div class="card-body">
-						<p>ID is:  {{ obj.id }}</p>
-						<h5 class="card-title"><a href="{% url 'post_detail' obj.pk %}">{{ obj.title }}</a></h5>
-						<i>{{ obj.updated_at|date:"D M Y" }}</i>
-						{% if obj.image %}
-						<img src="{{ obj.image.url }}" class="w-100">
-						{% endif %}
-						<p class="card-text">{{ obj.content|linebreaks|truncatechars:25 }}</p>
-						<a href="{% url 'post_update' obj.pk %}" class="btn btn-primary">Edit</a></a>
-						<a href="{% url 'post_delete' obj.pk %}" onclick="confirm('Are you sure want to delete this?')" class="btn btn-danger">Delete</a></a>
-					</div>
-				</div>
-			</div>
-			{% cycle "" "<div class='col-12'><hr/></div><div class='row'></div>" %}
-		{% endfor %}
-		<div class="pagination">
-			<span class="step-links">
-				{% if object_list.has_previous %}
-					<a href="?page=1">&laquo; first</a>
-					<a href="?page={{ object_list.previous_page_number }}">previous</a>
-				{% endif %}
-		
-				<span class="current">
-					Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
-				</span>
-		
-				{% if object_list.has_next %}
-					<a href="?page={{ object_list.next_page_number }}">next</a>
-					<a href="?page={{ object_list.paginator.num_pages }}">last &raquo;</a>
-				{% endif %}
-			</span>
-		</div>
-	</div>
-
-	<!-- JS, Popper.js, and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-{% endblock content %}
+    <!-- Start Copyright Area  -->
+    <div class="copyright-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-9 col-md-12">
+                    <div class="copyright-left">
+                        <div class="logo">
+                            <a href="index.html">
+                                <img class="dark-logo" src="{% static 'assets/images/logo/logo-black.png' %}" alt="Logo Images" />
+                                <img class="light-logo" src="{% static 'assets/images/logo/logo-white2.png' %}" alt="Logo Images" />
+                            </a>
+                        </div>
+                        <ul class="mainmenu justify-content-start">
+                            <li>
+                                <a class="hover-flip-item-wrapper" href="contact.html">
+                                    <span class="hover-flip-item">
+                                        <span data-text="Contact Us">Contact Us</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover-flip-item-wrapper" href="#">
+                                    <span class="hover-flip-item">
+                                        <span data-text="Terms of Use">Terms of Use</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover-flip-item-wrapper" href="#">
+                                    <span class="hover-flip-item">
+                                        <span data-text="AdChoices">AdChoices</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover-flip-item-wrapper" href="#">
+                                    <span class="hover-flip-item">
+                                        <span data-text="Advertise with Us">Advertise with Us</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="hover-flip-item-wrapper" href="#">
+                                    <span class="hover-flip-item">
+                                        <span data-text="Blogar Store">Blogar Store</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <div class="copyright-right text-left text-lg-right mt_md--20 mt_sm--20">
+                        <p class="b3">All Rights Reserved © 2020</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Copyright Area  -->
 </div>
-</div>
-</div>
-</body>
+<!-- End Footer Area  -->
+            <!-- Start Back To Top  -->
+            <a id="backto-top"></a>
+            <!-- End Back To Top  -->
+        </div>
+
+
+        <!-- JS
+============================================ -->
+        <!-- Modernizer JS -->
+        <script src="{% static 'assets/js/vendor/modernizr.min.js' %}"></script>
+        <!-- jQuery JS -->
+        <script src="{% static 'assets/js/vendor/jquery.js' %}"></script>
+        <!-- Bootstrap JS -->
+        <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/slick.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/tweenmax.min.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/js.cookie.js' %}"></script>
+        <script src="{% static 'assets/js/vendor/jquery.style.switcher.js' %}"></script>
+
+        <!-- Main JS -->
+        <script src="assets/js/main.js"></script>
+    </body>
 </html>
