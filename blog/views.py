@@ -38,12 +38,13 @@ class BlogDetails(DetailView):
         email = request.POST.get('email')
         mobile = request.POST.get('mobile')
         website = request.POST.get('website')
+        image = request.FILES.get('image')
         message = request.POST.get('message')
         comment = BlogComment.objects.filter(post__pk=pk)
         if name and email and message:
             BlogComment.objects.create(
                 name=name, email=email, mobile=mobile, website=website,
-                message=message, post=object
+                message=message, post=object, image=image
             )
             context = {
                 'object': object,

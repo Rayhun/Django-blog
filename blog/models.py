@@ -42,6 +42,7 @@ class BlogComment(models.Model):
     email = models.EmailField(max_length=255)
     mobile = models.CharField(max_length=25, blank=True)
     website = models.URLField(blank=True)
+    image = models.ImageField(upload_to="comment_image", null=True)
     message = models.TextField()
 
     def __str__(self):

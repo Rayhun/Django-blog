@@ -193,25 +193,25 @@
                                 <!-- Start Comment Respond  -->
                                 <div class="comment-respond">
                                     <h4 class="title">Post a comment</h4>
-                                    <form action="" method="POST">
+                                    <form action="" method="POST" enctype="multipart/form-data">
                                         {% csrf_token %}
                                         <p class="comment-notes"><span id="email-notes">Your email address will not be
                                                 published.</span> Required fields are marked <span
                                                 class="required">*</span></p>
                                         <div class="row row--10">
-                                            <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Name</label>
                                                     <input name="name" id="name" type="text" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Email</label>
                                                     <input name="email" id="email" type="email" required>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-md-6 col-12">
+                                            <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Mobile Number</label>
                                                     <input name="mobile" id="mobile" type="number">
@@ -221,6 +221,12 @@
                                                 <div class="form-group">
                                                     <label>Your Website</label>
                                                     <input name="website" id="website" type="url">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label>Your Image</label>
+                                                    <input name="image" id="image" class="form-control" type="file" required>
                                                 </div>
                                             </div>
                                             <div class="col-12">
