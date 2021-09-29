@@ -181,15 +181,6 @@
 
                             <!-- Start Comment Form Area  -->
                             <div class="axil-comment-area">
-                                <div class="axil-total-comment-post">
-                                    <div class="title">
-                                        <h4 class="mb--0">{{ comment.count }} Comments</h4>
-                                    </div>
-                                    <div class="add-comment-button cerchio">
-                                        <a class="axil-button button-rounded" href="post-details.html" tabindex="0"><span>Add Your Comment</span></a>
-                                    </div>
-                                </div>
-
                                 <!-- Start Comment Respond  -->
                                 <div class="comment-respond">
                                     <h4 class="title">Post a comment</h4>
@@ -202,45 +193,38 @@
                                             <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Name</label>
-                                                    <input name="name" id="name" type="text" required>
+                                                    {{ form.name }}
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Email</label>
-                                                    <input name="email" id="email" type="email" required>
+                                                    {{ form.email }}
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-12">
                                                 <div class="form-group">
                                                     <label>Your Mobile Number</label>
-                                                    <input name="mobile" id="mobile" type="number">
+                                                     {{ form.mobile }}
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label>Your Website</label>
-                                                    <input name="website" id="website" type="url">
+                                                    {{ form.website }}
                                                 </div>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label>Your Image</label>
-                                                    <input name="image" id="image" class="form-control" type="file" required>
+                                                    {{ form.image }}
                                                 </div>
                                             </div>
                                             <div class="col-12">
                                                 <div class="form-group">
                                                     <label>Leave a Reply</label>
-                                                    <textarea name="message" required></textarea>
+                                                    {{ form.message }}
                                                 </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <p class="comment-form-cookies-consent">
-                                                    <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes">
-                                                    <label for="wp-comment-cookies-consent">Save my name, email, and
-                                                        website in this browser for the next time I comment.</label>
-                                                </p>
                                             </div>
                                             <div class="col-lg-12">
                                                 <div class="form-submit cerchio">
@@ -257,38 +241,100 @@
                                     <h4 class="title">{{ comment.count }} comments</h4>
                                     <ul class="comment-list">
                                         <!-- Start Single Comment  -->
+                                        {% for comment in comment %}
                                         <li class="comment">
                                             <div class="comment-body">
                                                 <div class="single-comment">
                                                     <div class="comment-img">
-                                                        <img src="{% static 'assets/images/post-images/author/author-b2.png' %}" alt="Author Images">
+                                                        <img style="width: 75px; height: 60px;" src="{{ comment.image.url }}" alt="Author Images">
                                                     </div>
                                                     <div class="comment-inner">
                                                         <h6 class="commenter">
                                                             <a class="hover-flip-item-wrapper" href="#">
                                                                 <span class="hover-flip-item">
-                                                                    <span data-text="Cameron Williamson">Cameron Williamson</span>
+                                                                    <span data-text="{{ comment.name }}">{{ comment.name }}</span>
                                                                 </span>
                                                             </a>
                                                         </h6>
                                                         <div class="comment-meta">
-                                                            <div class="time-spent">Nov 23, 2018 at 12:23 pm</div>
+                                                            <div class="time-spent">{{ comment.create_at }}</div>
                                                             <div class="reply-edit">
                                                                 <div class="reply">
                                                                     <a class="comment-reply-link hover-flip-item-wrapper" href="#">
                                                                         <span class="hover-flip-item">
-                                                                            <span data-text="Reply">Reply</span>
+                                                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                                Reply {{ comment.pk }}
+                                                                            </button>
                                                                         </span>
                                                                     </a>
                                                                 </div>
+                                                                <!-- Button trigger modal -->
+                                                                <!-- Modal -->
+                                                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                        <form method="post" enctype="multipart/form-data">
+                                                                            {% csrf_token %}
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                        <span aria-hidden="true">&times;</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="row row--10">
+                                                                                        <div class="col-lg-4 col-md-4 col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Your Name</label>
+                                                                                                {{ replay_form.name }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-4 col-md-4 col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Your Email</label>
+                                                                                                {{ replay_form.email }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-4 col-md-4 col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Your Mobile Number</label>
+                                                                                                 {{ replay_form.mobile }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6 col-md-6 col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Your Website</label>
+                                                                                                {{ replay_form.website }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-6 col-md-6 col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Your Image</label>
+                                                                                                {{ replay_form.image }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-12">
+                                                                                            <div class="form-group">
+                                                                                                <label>Leave a Reply</label>
+                                                                                                {{ replay_form.message }}
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-lg-12">
+                                                                                            <div class="form-submit cerchio">
+                                                                                                <input name="submit" type="submit" id="submit" class="axil-button button-rounded" value="Post Comment">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                         <div class="comment-text">
-                                                            <p class="b2">Duis hendrerit velit scelerisque felis tempus, id porta
-                                                                libero venenatis. Nulla facilisi. Phasellus viverra
-                                                                magna commodo dui lacinia tempus. Donec malesuada nunc
-                                                                non dui posuere, fringilla vestibulum urna mollis.
-                                                                Integer condimentum ac sapien quis maximus. </p>
+                                                            <p class="b2">{{ comment.message }} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -332,6 +378,7 @@
                                                 <!-- End Single Comment  -->
                                             </ul>
                                         </li>
+                                        {% endfor %}
                                         <!-- End Single Comment  -->
                                     </ul>
                                 </div>

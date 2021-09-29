@@ -44,6 +44,25 @@ class BlogComment(models.Model):
     website = models.URLField(blank=True)
     image = models.ImageField(upload_to="comment_image", null=True)
     message = models.TextField()
+    create_at = models.DateTimeField(auto_now=True, null=True)
+    update_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+
+class ReplayBlogComment(models.Model):
+    comment = models.ForeignKey(
+        BlogComment, on_delete=SET_NULL, related_name='replay_blog', null=True
+    )
+    name = models.CharField(max_length=255)
+    email = models.EmailField(max_length=255)
+    mobile = models.CharField(max_length=25, blank=True)
+    website = models.URLField(blank=True)
+    image = models.ImageField(upload_to="comment_image", null=True)
+    message = models.TextField()
+    create_at = models.DateTimeField(auto_now=True, null=True)
+    update_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.name
