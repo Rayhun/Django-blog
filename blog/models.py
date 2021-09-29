@@ -41,7 +41,7 @@ class BlogComment(models.Model):
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     mobile = models.CharField(max_length=25, blank=True)
-    website = models.URLField()
+    website = models.URLField(blank=True)
     message = models.TextField()
 
     def __str__(self):
