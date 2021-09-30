@@ -13,7 +13,7 @@ admin.site.register(BlogPost, AdminBlogPost)
 
 
 class AdminBlogComment(admin.ModelAdmin):
-    list_display = ['post', 'name', 'email', 'mobile']
+    list_display = ['post', 'name', 'email', 'mobile', 'parent']
 admin.site.register(BlogComment, AdminBlogComment)
 
 class AdminReplayBlogComment(admin.ModelAdmin):
