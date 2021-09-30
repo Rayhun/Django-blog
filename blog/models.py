@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.deletion import CASCADE, SET_NULL
+from django.db.models.deletion import SET_NULL
 from django.db.models.fields import CharField
 
 
@@ -34,10 +34,16 @@ class BlogPost(models.Model):
         return self.title
 
 
+class CommentManager(models.Manager):
+    def all(self):
+        pass
+
+
 class BlogComment(models.Model):
     post = models.ForeignKey(
         BlogPost, on_delete=SET_NULL, related_name='blog', null=True
     )
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=SET_NULL)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     mobile = models.CharField(max_length=25, blank=True)
@@ -47,8 +53,19 @@ class BlogComment(models.Model):
     create_at = models.DateTimeField(auto_now=True, null=True)
     update_at = models.DateTimeField(auto_now_add=True, null=True)
 
+    objects = CommentManager()
+
     def __str__(self):
         return self.name
+    
+    def children(self):
+        return BlogComment.objects.filter(parent=self)
+    
+    @classmethod
+    def is_parent(self):
+        if self.parent.field.name is not None:
+            return False
+        return True
 
 
 class ReplayBlogComment(models.Model):
