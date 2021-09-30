@@ -401,3 +401,8 @@
     axilInit.i();
 
 })(window, document, jQuery);
+
+$(".replay").on("click", function () {
+    var clickedBtnID = $(this).attr('id');
+    $("#modal-body" + clickedBtnID).show()
+ });
