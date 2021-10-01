@@ -1,8 +1,16 @@
 from django.db import models
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView
-from .models import BlogPost, BlogComment
-from .forms import ReplayCommentForm, CommentForm
+from .models import BlogPost, BlogComment, IpStore
+from .forms import CommentForm
+
+def visitor_ip_address(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 
 class BlogHomePageView(TemplateView):
@@ -19,6 +27,14 @@ class BlogHomePageView(TemplateView):
         context['popular_post'] = self.model.objects.all().order_by(
             '-total_view'
         )
+        visitor_ip = visitor_ip_address(self.request)
+        try:
+            ip_name = IpStore.objects.get(ip_name=visitor_ip)
+        except Exception as e:
+            IpStore.objects.create(ip_name=visitor_ip)
+            ip_name = IpStore.objects.get(ip_name=visitor_ip)
+        print(ip_name, "******************")
+        context['visitor_ip'] = ip_name
         return context
 
 
@@ -49,7 +65,6 @@ class BlogDetails(DetailView):
             print(e)
             replay_comment = None
             replay = None
-        # comment = BlogComment.objects.get(pk=20)
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
