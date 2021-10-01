@@ -1,16 +1,15 @@
-from django.db import models
+from django.http import request
+from ipware import get_client_ip
+import json, urllib
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, DetailView
 from .models import BlogPost, BlogComment, IpStore
 from .forms import CommentForm
 
-def visitor_ip_address(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+# def visitor_ip_address(request):
+#     return request.META.get(
+#         'HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')
+#     ).split(',')[0].strip()
 
 
 class BlogHomePageView(TemplateView):
@@ -27,14 +26,69 @@ class BlogHomePageView(TemplateView):
         context['popular_post'] = self.model.objects.all().order_by(
             '-total_view'
         )
-        visitor_ip = visitor_ip_address(self.request)
+        # visitor_ip = visitor_ip_address(self.request)
+        # try:
+        #     ip_name = IpStore.objects.get(ip_name=visitor_ip)
+        # except Exception as e:
+        #     IpStore.objects.create(ip_name=visitor_ip)
+        #     ip_name = IpStore.objects.get(ip_name=visitor_ip)
+        # context['visitor_ip'] = ip_name
+        clint_ip, is_routable = get_client_ip(self.request)
+        if clint_ip is None:
+            clint_ip = "0.0.0.0"
+        else:
+            if is_routable:
+                ip_type = "Public"
+            else:
+                ip_type = "Private"
+        clint_ip = "103.230.106.25"
+        url = "http://ip-api.com/json/" + clint_ip
+        response = urllib.request.urlopen(url)
+        data = json.loads(response.read())
+        print(data)
         try:
-            ip_name = IpStore.objects.get(ip_name=visitor_ip)
+            my_ip = IpStore.objects.get(ip_name=clint_ip)
         except Exception as e:
-            IpStore.objects.create(ip_name=visitor_ip)
-            ip_name = IpStore.objects.get(ip_name=visitor_ip)
-        print(ip_name, "******************")
-        context['visitor_ip'] = ip_name
+            try:
+                IpStore.objects.create(
+                    ip_name=clint_ip,
+                    ip_type=ip_type,
+                    city=data['city'],
+                    region=data['regionName'],
+                    country=data['country'],
+                    lat=data['lat'],
+                    lon=data['lon'],
+                    timezone=data['timezone'],
+                    zip_code=data['zip'],
+                    isp=data['isp'],
+                    org=data['org'],
+                    query=data['query'],
+                    status=data['status'],
+                    ass=data['as'],
+                    countryCode=data['countryCode']
+                )
+            except Exception as e:
+                IpStore.objects.create(
+                    ip_name=clint_ip,
+                    ip_type=ip_type,
+                    city="Unknown",
+                    region="Unknown",
+                    country="Unknown",
+                    lat="Unknown",
+                    lon="Unknown",
+                    timezone="Unknown",
+                    zip_code="Unknown",
+                    isp="Unknown",
+                    org="Unknown",
+                    query="Unknown",
+                    status="Unknown",
+                    ass="Unknown",
+                    countryCode="Unknown"
+                )
+
+            my_ip = IpStore.objects.get(ip_name=clint_ip)
+        context['ip_address'] = my_ip
+        print(clint_ip, ip_type, "------------------",data)
         return context
 
 
