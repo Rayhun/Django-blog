@@ -4,6 +4,28 @@ from django.db.models.deletion import SET_NULL
 from django.db.models.fields import CharField
 
 
+class IpStore(models.Model):
+    ip_name = models.CharField(max_length=100, null=True, blank=True)
+    country = models.CharField(max_length=100, null=True, blank=True)
+    ip_type = models.CharField(max_length=100, null=True, blank=True)
+    city = models.CharField(max_length=100, null=True, blank=True)
+    region = models.CharField(max_length=100, null=True, blank=True)
+    zip_code = models.CharField(max_length=100, null=True, blank=True)
+    timezone = models.CharField(max_length=100, null=True, blank=True)
+    isp = models.CharField(max_length=100, null=True, blank=True)
+    org = models.CharField(max_length=100, null=True, blank=True)
+    ass = models.CharField(max_length=100, null=True, blank=True)
+    lat = models.CharField(max_length=100, null=True, blank=True)
+    lon = models.CharField(max_length=100, null=True, blank=True)
+    query = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=100, null=True, blank=True)
+    countryCode = models.CharField(max_length=100, null=True, blank=True)
+    create_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.ip_name
+
+
 class Category(models.Model):
     name = CharField(max_length=250, unique=True)
     create_at = models.DateTimeField(auto_now=True)
@@ -29,14 +51,10 @@ class BlogPost(models.Model):
     update_at = models.DateTimeField(auto_now_add=True)
     is_hot = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
+    like = models.ManyToManyField(IpStore, related_name='like')
 
     def __str__(self):
         return self.title
-
-
-class CommentManager(models.Manager):
-    def all(self):
-        pass
 
 
 class BlogComment(models.Model):
@@ -53,8 +71,6 @@ class BlogComment(models.Model):
     create_at = models.DateTimeField(auto_now=True, null=True)
     update_at = models.DateTimeField(auto_now_add=True, null=True)
 
-    objects = CommentManager()
-
     def __str__(self):
         return self.name
     
@@ -66,11 +82,6 @@ class BlogComment(models.Model):
         if self.parent.field.name is not None:
             return False
         return True
-
-
-class IpStore(models.Model):
-    ip_name = models.CharField(max_length=100)
-    create_at = models.DateTimeField(auto_now=True)
 
 
 class ReplayBlogComment(models.Model):
