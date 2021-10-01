@@ -51,7 +51,6 @@ class BlogPost(models.Model):
     update_at = models.DateTimeField(auto_now_add=True)
     is_hot = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
-    like = models.ManyToManyField(IpStore, related_name='like')
 
     def __str__(self):
         return self.title
@@ -70,6 +69,7 @@ class BlogComment(models.Model):
     message = models.TextField()
     create_at = models.DateTimeField(auto_now=True, null=True)
     update_at = models.DateTimeField(auto_now_add=True, null=True)
+    like = models.ManyToManyField(IpStore, related_name='like')
 
     def __str__(self):
         return self.name
