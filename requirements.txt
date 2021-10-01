@@ -97,7 +97,6 @@ pandas==1.1.5
 paramiko==2.7.2
 passlib==1.7.4
 Pillow==8.0.1
-pipdeptree==1.0.0
 polib==1.1.1
 prometheus-client==0.9.0
 psutil==5.8.0
