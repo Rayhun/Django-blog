@@ -23,5 +23,8 @@ admin.site.register(ReplayBlogComment, AdminReplayBlogComment)
 
 
 class AdminIpStore(admin.ModelAdmin):
-    list_display = ['ip_name', 'create_at']
+    list_display = [
+        'ip_name', 'country', 'city', 'region', 'zip_code', 'lon', 'lat',
+        'timezone', 'isp', 'org', 'ass',
+    ]
 admin.site.register(IpStore, AdminIpStore)
