@@ -404,5 +404,8 @@
 
 $(".replay").on("click", function () {
     var clickedBtnID = $(this).attr('id');
-    $("#modal-body" + clickedBtnID).show()
+    $("#modal-body" + clickedBtnID).toggle()
  });
+$(".fa-heart").on("click", function () {
+    $(this).toggleClass("far fas");
+});
