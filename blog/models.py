@@ -68,6 +68,11 @@ class BlogComment(models.Model):
         return True
 
 
+class IpStore(models.Model):
+    ip_name = models.CharField(max_length=100)
+    create_at = models.DateTimeField(auto_now=True)
+
+
 class ReplayBlogComment(models.Model):
     comment = models.ForeignKey(
         BlogComment, on_delete=SET_NULL, related_name='replay_blog', null=True
