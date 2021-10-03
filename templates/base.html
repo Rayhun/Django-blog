@@ -72,9 +72,12 @@
                                         <li class="icon">
                                             <a href="#"><i class="fas fa-bell"></i></a>
                                         </li>
+                                        {{ request.user.image }}
+                                        {% if request.user %}
                                         <li>
                                             <a href="#"><img src="{% static 'assets/images/others/author.png' %}" alt="Author Images" /></a>
                                         </li>
+                                        {% endif %}
                                     </ul>
                                     <!-- Start Hamburger Menu  -->
                                     <div class="hamburger-menu d-block d-xl-none">

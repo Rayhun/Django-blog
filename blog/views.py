@@ -1,16 +1,26 @@
-from django.http import request
 from ipware import get_client_ip
 import json, urllib
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView, DetailView
 from .models import BlogPost, BlogComment, IpStore
-from .forms import CommentForm
+from .forms import CommentForm, SignUpForm
+from django.contrib.auth import login, logout
 
-# def visitor_ip_address(request):
-#     return request.META.get(
-#         'HTTP_X_FORWARDED_FOR', request.META.get('REMOTE_ADDR', '')
-#     ).split(',')[0].strip()
 
+class UserCreateView(TemplateView):
+    template_name = 'signup.html'
+
+    def get(self, request):
+        form = SignUpForm()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            login(request, form.instance)
+            return redirect('/')
+        return render(request, self.template_name, {'form': form})
 
 class BlogHomePageView(TemplateView):
     template_name = 'home.html'
@@ -26,13 +36,6 @@ class BlogHomePageView(TemplateView):
         context['popular_post'] = self.model.objects.all().order_by(
             '-total_view'
         )
-        # visitor_ip = visitor_ip_address(self.request)
-        # try:
-        #     ip_name = IpStore.objects.get(ip_name=visitor_ip)
-        # except Exception as e:
-        #     IpStore.objects.create(ip_name=visitor_ip)
-        #     ip_name = IpStore.objects.get(ip_name=visitor_ip)
-        # context['visitor_ip'] = ip_name
         clint_ip, is_routable = get_client_ip(self.request)
         if clint_ip is None:
             clint_ip = "0.0.0.0"
@@ -45,7 +48,6 @@ class BlogHomePageView(TemplateView):
         url = "http://ip-api.com/json/" + clint_ip
         response = urllib.request.urlopen(url)
         data = json.loads(response.read())
-        print(data)
         try:
             my_ip = IpStore.objects.get(ip_name=clint_ip)
         except Exception as e:
@@ -88,8 +90,18 @@ class BlogHomePageView(TemplateView):
 
             my_ip = IpStore.objects.get(ip_name=clint_ip)
         context['ip_address'] = my_ip
-        print(clint_ip, ip_type, "------------------",data)
         return context
+
+
+class BlogCommentLikeView(TemplateView):
+    model = BlogComment
+
+    def get(self, request, *args, **kwargs):
+        comment_id = self.kwargs['comment_id']
+        comment = self.model.objects.get(id=comment_id)
+        comment.like += 1
+        comment.save()
+        return redirect('/blog/post/' + str(comment.blog_post.id))
 
 
 class BlogDetails(DetailView):
@@ -116,9 +128,19 @@ class BlogDetails(DetailView):
             replay_comment = int(request.POST.get('replay_comment'))
             replay = BlogComment.objects.get(pk=replay_comment)
         except Exception as e:
-            print(e)
             replay_comment = None
             replay = None
+        try:
+            clint_ip, is_routable = get_client_ip(self.request)
+            comment_id = int(request.POST.get('comment_id'))
+            cmt_lik = get_object_or_404(BlogComment, pk=comment_id)
+            # cmt_lik.like.add('20')
+            comment = BlogComment.objects.get(pk=comment_id)
+            comment.total_like += 1
+            comment.save()
+            return redirect('blog_details', pk=pk)
+        except Exception as e:
+            comment = None
         form = CommentForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)

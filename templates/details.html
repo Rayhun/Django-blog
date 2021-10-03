@@ -258,7 +258,13 @@
                                                         </h6>
                                                         <div class="comment-meta">
                                                             <div class="time-spent">{{ comment.create_at }}</div>
-                                                            <div class="time-spent" ip="comment_like" style="cursor: pointer; color: red;"><i class="far fa-heart"></i></div>
+                                                            <form action="" method="post">
+                                                            {% csrf_token %}
+                                                                <input type="hidden" name="comment_id" value="{{ comment.pk }}">
+                                                                <button type="submit" class="time-spent" style="cursor: pointer; color: red; border: none;" ip="comment_like">
+                                                                    <i class="far fa-heart"></i>
+                                                                </button>
+                                                            </form>
                                                             <div class="reply-edit">
                                                                 <div class="reply">
                                                                     <a class="comment-reply-link hover-flip-item-wrapper replay" id="{{ comment.pk }}">
@@ -270,7 +276,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="comment-text">
-                                                            <p class="b2">{{ comment.message }} </p>
+                                                            <p class="b2">{{ comment.message }}.</p>
                                                         </div>
                                                         <form method="post" enctype="multipart/form-data">
                                                             {% csrf_token %}
