@@ -70,6 +70,7 @@ class BlogComment(models.Model):
     create_at = models.DateTimeField(auto_now=True, null=True)
     update_at = models.DateTimeField(auto_now_add=True, null=True)
     like = models.ManyToManyField(IpStore, related_name='like')
+    total_like = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
