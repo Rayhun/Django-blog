@@ -49,7 +49,7 @@
                                 <div class="post-cat-list">
                                     <a class="hover-flip-item-wrapper" href="{% url 'blog_details' last_post.pk %}">
                                         <span class="hover-flip-item">
-                                            <span data-text="{{ last_post.category }}">{{ last_post.category }}</span>
+                                            {{ last_post.category }}
                                         </span>
                                     </a>
                                 </div>
@@ -67,7 +67,7 @@
                         <!-- Start Post Grid  -->
                         <div class="content-block banner-right post-grid post-grid-transparent post-grid-small post-overlay-bottom">
                             <div class="post-thumbnail">
-                                <a href="post-details.html">
+                                <a href="{% url 'blog_details' post.pk %}">
                                     <img src="{{ post.image.url }}" alt="Post Images" />
                                 </a>
                             </div>
@@ -77,12 +77,12 @@
                                         <div class="post-cat-list">
                                             <a class="hover-flip-item-wrapper" href="#">
                                                 <span class="hover-flip-item">
-                                                    <span data-text="{{ post.category }} ({{ post.total_view }})">{{ post.category }} ({{ post.total_view }})</span>
+                                                    {{ post.category }} ({{ post.total_view }})
                                                 </span>
                                             </a>
                                         </div>
                                     </div>
-                                    <h5 class="title"><a href="post-details.html">{{ post.title }} </a></h5>
+                                    <h5 class="title"><a href="{% url 'blog_details' post.pk %}">{{ post.title }} </a></h5>
                                 </div>
                             </div>
                         </div>
@@ -121,7 +121,7 @@
                         <div class="row">
                             <div class="content-block post-medium post-medium-border border-thin">
                                 <div class="post-thumbnail">
-                                    <a href="post-details.html">
+                                    <a href="{% url 'blog_details' obj.pk %}">
                                         <img src="{{ obj.image.url }}" alt="Post Images" />
                                     </a>
                                 </div>
@@ -130,13 +130,13 @@
                                         <div class="post-cat-list">
                                             <a class="hover-flip-item-wrapper" href="#">
                                                 <span class="hover-flip-item">
-                                                    <span data-text="{{ obj.category.name }}">{{ obj.category.name }}</span>
+                                                    {{ obj.category.name }}
                                                 </span>
                                             </a>
                                         </div>
                                     </div>
                                     <h4 class="title">
-                                        <a href="post-details.html">{{ obj.title }} </a></h4>
+                                        <a href="{% url 'blog_details' obj.pk %}">{{ obj.title }} </a></h4>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +169,7 @@
                                 <!-- Start Post Grid  -->
                                 <div class="content-block post-grid mt--30">
                                     <div class="post-thumbnail">
-                                        <a href="post-details.html">
+                                        <a href="{% url 'blog_details' obj.pk %}">
                                             <img style="height: 300px;" src="{{ obj.image.url }}" alt="Post Images" />
                                         </a>
                                     </div>
@@ -177,14 +177,14 @@
                                         <div class="post-content">
                                             <div class="post-cat">
                                                 <div class="post-cat-list">
-                                                    <a class="hover-flip-item-wrapper" href="#">
+                                                    <a class="hover-flip-item-wrapper" href="{% url 'blog_details' obj.pk %}">
                                                         <span class="hover-flip-item">
-                                                            <span data-text="LIFESTYLE">LIFESTYLE</span>
+                                                            {{ obj.category.name }}
                                                         </span>
                                                     </a>
                                                 </div>
                                             </div>
-                                            <h4 class="title"><a href="post-details.html">iPadOS 14 new designed specifically for iPad</a></h4>
+                                            <h4 class="title"><a href="{% url 'blog_details' obj.pk %}">iPadOS 14 new designed specifically for iPad</a></h4>
                                         </div>
                                     </div>
                                 </div>
@@ -220,7 +220,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-4 col-6">
                         <div class="content-block post-default image-rounded mt--30">
                             <div class="post-thumbnail">
-                                <a href="post-details.html">
+                                <a href="{% url 'blog_details' obj.pk %}">
                                     <img style="height: 200px;" src="{{ obj.image.url }}" alt="Post Images" />
                                 </a>
                             </div>
@@ -229,12 +229,14 @@
                                     <div class="post-cat-list">
                                         <a class="hover-flip-item-wrapper" href="#">
                                             <span class="hover-flip-item">
-                                                <span data-text="LIFESTYLE">LIFESTYLE</span>
+                                                {{ obj.category }}
                                             </span>
                                         </a>
                                     </div>
                                 </div>
-                                <h5 class="title"><a href="post-details.html">Get Ready To Up Your Creative Game With The </a></h5>
+                                <h5 class="title">
+                                    {{ obj.title }}
+                                </h5>
                             </div>
                         </div>
                     </div>
@@ -251,12 +253,13 @@
 <div class="axil-post-list-area post-listview-visible-color axil-section-gap bg-color-white">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-xl-8">
+            {% for obj in all_post %}
+            <div class="col-lg-12 col-xl-12">
                 <!-- Start Post List  -->
                 <div class="content-block post-list-view is-active mt--30">
                     <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-list-05.jpg' %}" alt="Post Images" />
+                        <a href="{% url 'blog_details' obj.pk %}">
+                            <img style="height: 200px;" src="{{ obj.image.url }}" alt="Author Images" />
                         </a>
                     </div>
                     <div class="post-content">
@@ -264,124 +267,12 @@
                             <div class="post-cat-list">
                                 <a class="hover-flip-item-wrapper" href="#">
                                     <span class="hover-flip-item">
-                                        <span data-text="FOOD">FOOD</span>
+                                        {{ obj.category.name }}
                                     </span>
                                 </a>
                             </div>
                         </div>
-                        <h4 class="title"><a href="post-details.html">Security isn’t just a technology problem it’s about design, too </a></h4>
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="post-author-avatar border-rounded">
-                                    <img src="{% static 'assets/images/post-images/author/author-image-2.png' %}" alt="Author Images" />
-                                </div>
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="author.html">
-                                            <span class="hover-flip-item">
-                                                <span data-text="Fatima Asrafy">Fatima Asrafy</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
-                                        <li>3 min read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fas fa-link"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Post List  -->
-
-                <!-- Start Post List  -->
-                <div class="content-block post-list-view axil-control mt--30">
-                    <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-list-06.jpg' %}" alt="Post Images" />
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="#">
-                                    <span class="hover-flip-item">
-                                        <span data-text="z">z</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 class="title"><a href="post-details.html">To the lover of wilderness, Alaska is one of the most wonderful. </a></h4>
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="post-author-avatar border-rounded">
-                                    <img src="{% static 'assets/images/post-images/author/author-image-3.png' %}" alt="Author Images" />
-                                </div>
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="author.html">
-                                            <span class="hover-flip-item">
-                                                <span data-text="Sarah">Sarah</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
-                                        <li>3 min read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fas fa-link"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Post List  -->
-
-                <!-- Start Post List  -->
-                <div class="content-block post-list-view axil-control mt--30">
-                    <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-list-07.jpg' %}" alt="Post Images" />
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="#">
-                                    <span class="hover-flip-item">
-                                        <span data-text="DESIGN">DESIGN</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 class="title"><a href="post-details.html">New: Freehand Templates, built for the whole team</a></h4>
+                        <h4 class="title"><a href="{% url 'blog_details' obj.pk %}">{{ obj.title }}</a></h4>
                         <div class="post-meta-wrapper">
                             <div class="post-meta">
                                 <div class="post-author-avatar border-rounded">
@@ -391,12 +282,13 @@
                                     <h6 class="post-author-name">
                                         <a class="hover-flip-item-wrapper" href="author.html">
                                             <span class="hover-flip-item">
-                                                <span data-text="Mohima Afrin">Mohima Afrin</span>
+                                                Mohammad Rayhan
                                             </span>
                                         </a>
                                     </h6>
                                     <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
+                                        <li>{{ obj.create_at|timesince }}</li>
+                                        <li>{{ obj.last_seen|timesince }} ago</li>
                                         <li>3 min read</li>
                                     </ul>
                                 </div>
@@ -418,250 +310,9 @@
                         </div>
                     </div>
                 </div>
-                <!-- End Post List  -->
-
-                <!-- Start Post List  -->
-                <div class="content-block post-list-view axil-control mt--30">
-                    <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-list-08.jpg' %}" alt="Post Images" />
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="#">
-                                    <span class="hover-flip-item">
-                                        <span data-text="LIFESTYLE">LIFESTYLE</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 class="title"><a href="post-details.html">As a lifestyle you always being the focal point is innately unhealthy.</a></h4>
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="post-author-avatar border-rounded">
-                                    <img src="{% static 'assets/images/post-images/author/author-image-2.png' %}" alt="Author Images" />
-                                </div>
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="author.html">
-                                            <span class="hover-flip-item">
-                                                <span data-text="Irin Pervin">Irin Pervin</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
-                                        <li>3 min read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fas fa-link"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!-- End Post List  -->
-
-                <!-- Start Post List  -->
-                <div class="content-block post-list-view axil-control mt--30">
-                    <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-list-09.jpg' %}" alt="Post Images" />
-                        </a>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="#">
-                                    <span class="hover-flip-item">
-                                        <span data-text="FOOD">FOOD</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <h4 class="title"><a href="post-details.html">I saw few die of hunger; of eating, a hundred thousand.</a></h4>
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="post-author-avatar border-rounded">
-                                    <img src="{% static 'assets/images/post-images/author/author-image-2.png' %}" alt="Author Images" />
-                                </div>
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="author.html">
-                                            <span class="hover-flip-item">
-                                                <span data-text="Rafiq Islam">Rafiq Islam</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
-                                        <li>3 min read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fas fa-link"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Post List  -->
-            </div>
-            <div class="col-lg-4 col-xl-4 mt_md--40 mt_sm--40">
-                <!-- Start Sidebar Area  -->
-                <div class="sidebar-inner">
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_categories mb--30">
-                        <ul>
-                            <li class="cat-item">
-                                <a href="#" class="inner">
-                                    <div class="thumbnail">
-                                        <img src="{% static 'assets/images/post-images/category-image-01.jpg' %}" alt="" />
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title">Tech</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="cat-item">
-                                <a href="#" class="inner">
-                                    <div class="thumbnail">
-                                        <img src="{% static 'assets/images/post-images/category-image-02.jpg' %}" alt="" />
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title">Style</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="cat-item">
-                                <a href="#" class="inner">
-                                    <div class="thumbnail">
-                                        <img src="{% static 'assets/images/post-images/category-image-03.jpg' %}" alt="" />
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title">z</h5>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="cat-item">
-                                <a href="#" class="inner">
-                                    <div class="thumbnail">
-                                        <img src="{% static 'assets/images/post-images/category-image-04.jpg' %}" alt="" />
-                                    </div>
-                                    <div class="content">
-                                        <h5 class="title">Food</h5>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- End Single Widget  -->
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_search mb--30">
-                        <h5 class="widget-title">Search</h5>
-                        <form action="#">
-                            <div class="axil-search form-group">
-                                <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
-                                <input type="text" class="form-control" placeholder="Search" />
-                            </div>
-                        </form>
-                    </div>
-                    <!-- End Single Widget  -->
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_postlist mb--30">
-                        <h5 class="widget-title">Popular on Blogar</h5>
-                        <!-- Start Post List  -->
-                        <div class="post-medium-block">
-                            <!-- Start Single Post  -->
-                            <div class="content-block post-medium mb--20">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="{% static 'assets/images/small-images/blog-sm-01.jpg' %}" alt="Post Images" />
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <h6 class="title"><a href="post-details.html">The underrated design book that transformed the way I work </a></h6>
-                                    <div class="post-meta">
-                                        <ul class="post-meta-list">
-                                            <li>Feb 17, 2019</li>
-                                            <li>300k Views</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Post  -->
-
-                            <!-- Start Single Post  -->
-                            <div class="content-block post-medium mb--20">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="{% static 'assets/images/small-images/blog-sm-02.jpg' %}" alt="Post Images" />
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <h6 class="title"><a href="post-details.html">Here’s what you should (and shouldn’t) do when</a></h6>
-                                    <div class="post-meta">
-                                        <ul class="post-meta-list">
-                                            <li>Feb 17, 2019</li>
-                                            <li>300k Views</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Post  -->
-
-                            <!-- Start Single Post  -->
-                            <div class="content-block post-medium mb--20">
-                                <div class="post-thumbnail">
-                                    <a href="post-details.html">
-                                        <img src="{% static 'assets/images/small-images/blog-sm-03.jpg' %}" alt="Post Images" />
-                                    </a>
-                                </div>
-                                <div class="post-content">
-                                    <h6 class="title"><a href="post-details.html">How a developer and designer duo at Deutsche Bank keep remote</a></h6>
-                                    <div class="post-meta">
-                                        <ul class="post-meta-list">
-                                            <li>Feb 17, 2019</li>
-                                            <li>300k Views</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- End Single Post  -->
-                        </div>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
-                </div>
-                <!-- End Sidebar Area  -->
-            </div>
+            {% endfor %}
         </div>
     </div>
 </div>

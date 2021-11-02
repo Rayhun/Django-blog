@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.deletion import SET_NULL
 from django.db.models.fields import CharField
+from django.views.generic.base import TemplateResponseMixin
 
 
 class IpStore(models.Model):
@@ -49,6 +50,8 @@ class BlogPost(models.Model):
     total_view = models.PositiveBigIntegerField(default=0)
     create_at = models.DateTimeField(auto_now=True)
     update_at = models.DateTimeField(auto_now_add=True)
+    last_seen = models.DateTimeField(null=True)
+    watching_time = models.IntegerField(null=True)
     is_hot = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
 

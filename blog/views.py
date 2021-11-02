@@ -1,3 +1,4 @@
+from datetime import datetime
 from ipware import get_client_ip
 import json, urllib
 from django.shortcuts import render, redirect, get_object_or_404
@@ -28,6 +29,7 @@ class BlogHomePageView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(BlogHomePageView, self).get_context_data(**kwargs)
+        context['all_post'] = self.model.objects.all()
         context['last_post'] = self.model.objects.first()
         context['first_four'] = self.model.objects.all()[1:6]
         context['top_popular_post'] = self.model.objects.all().order_by(
@@ -37,7 +39,7 @@ class BlogHomePageView(TemplateView):
             '-total_view'
         )[:2]
         context['hot_blog'] = self.model.objects.filter(is_hot=True)[:4]
-        context['featured_blog'] = self.model.objects.filter(is_featured=True)[:4]
+        context['featured_blog'] = self.model.objects.filter(is_featured=True)[:6]
         clint_ip, is_routable = get_client_ip(self.request)
         if clint_ip is None:
             clint_ip = "0.0.0.0"
@@ -121,6 +123,7 @@ class BlogDetails(DetailView):
         context['form'] = CommentForm()
         context['replay_blog'] = BlogComment.objects.filter(parent=20)
         self.object.total_view += 1
+        self.object.last_seen = datetime.now()
         self.object.save()
         return context
 
