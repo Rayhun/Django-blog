@@ -35,7 +35,9 @@ class BlogHomePageView(TemplateView):
         )[:1]
         context['popular_post'] = self.model.objects.all().order_by(
             '-total_view'
-        )
+        )[:2]
+        context['hot_blog'] = self.model.objects.filter(is_hot=True)[:4]
+        context['featured_blog'] = self.model.objects.filter(is_featured=True)[:4]
         clint_ip, is_routable = get_client_ip(self.request)
         if clint_ip is None:
             clint_ip = "0.0.0.0"

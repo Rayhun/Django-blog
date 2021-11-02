@@ -106,7 +106,6 @@
                 </div>
             </div>
         </div>
-
         <div class="row mt--20 align-content-center">
             <div class="col-lg-12 col-md-12 col-sm-12 col-12">
                 <div class="see-all-topics text-left text-md-right mt_sm--20">
@@ -115,134 +114,36 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <!-- Start Tab Content Wrapper  -->
+            {% for obj in hot_blog %}
+            <div class="col-lg-6">
                 <div class="tab-content" id="axilTabContent">
-                    <!-- Start Single Tab  -->
                     <div class="single-tab-content tab-pane fade show active" id="tabone" role="tabpanel" aria-labelledby="tab-one">
                         <div class="row">
-                            <div class="order-2 order-lg-1 col-lg-5 col-12 mt_md--40 mt_sm--40">
-                                <!-- Start Single Post  -->
-                                <div class="content-block post-medium post-medium-border border-thin">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{% static 'assets/images/small-images/liststyle-sm-01.jpg' %}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="post-cat">
-                                            <div class="post-cat-list">
-                                                <a class="hover-flip-item-wrapper" href="#">
-                                                    <span class="hover-flip-item">
-                                                        <span data-text="POLICY">POLICY</span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <h4 class="title"><a href="post-details.html">TikTok pulls out of Hong Kong due to new security law</a></h4>
-                                    </div>
+                            <div class="content-block post-medium post-medium-border border-thin">
+                                <div class="post-thumbnail">
+                                    <a href="post-details.html">
+                                        <img src="{{ obj.image.url }}" alt="Post Images" />
+                                    </a>
                                 </div>
-                                <!-- Start Single Post  -->
-
-                                <!-- Start Single Post  -->
-                                <div class="content-block post-medium post-medium-border border-thin">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{% static 'assets/images/small-images/liststyle-sm-02.jpg' %}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="post-cat">
-                                            <div class="post-cat-list">
-                                                <a class="hover-flip-item-wrapper" href="#">
-                                                    <span class="hover-flip-item">
-                                                        <span data-text="APP">APP</span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <h4 class="title"><a href="post-details.html">Slack is giving your weekends back with per-day</a></h4>
-                                    </div>
-                                </div>
-                                <!-- Start Single Post  -->
-                                <!-- Start Single Post  -->
-                                <div class="content-block post-medium post-medium-border border-thin">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{% static 'assets/images/small-images/liststyle-sm-03.jpg' %}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="post-cat">
-                                            <div class="post-cat-list">
-                                                <a class="hover-flip-item-wrapper" href="#">
-                                                    <span class="hover-flip-item">
-                                                        <span data-text="GOOGLE">GOOGLE</span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <h4 class="title"><a href="post-details.html">How to personalize your Google Chrome homepage with GIF</a></h4>
-                                    </div>
-                                </div>
-                                <!-- Start Single Post  -->
-
-                                <!-- Start Single Post  -->
-                                <div class="content-block post-medium post-medium-border border-thin">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{% static 'assets/images/small-images/post-seo-list-02.jpg' %}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-content">
-                                        <div class="post-cat">
-                                            <div class="post-cat-list">
-                                                <a class="hover-flip-item-wrapper" href="#">
-                                                    <span class="hover-flip-item">
-                                                        <span data-text="BUSINESS">BUSINESS</span>
-                                                    </span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <h4 class="title"><a href="post-details.html">Chinese EV startups Byton and Nio received paycheck </a></h4>
-                                    </div>
-                                </div>
-                                <!-- Start Single Post  -->
-                            </div>
-
-                            <div class="order-1 order-lg-2 col-lg-7 col-12">
-                                <!-- Start Post Grid  -->
-                                {% for post in top_popular_post %}
-                                <div class="content-block post-grid post-grid-transparent post-overlay-bottom">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{{ post.image.url }}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-grid-content">
-                                        <div class="post-content">
-                                            <div class="post-cat">
-                                                <div class="post-cat-list">
-                                                    <a class="hover-flip-item-wrapper" href="#">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="{{ post.category }}">{{ post.category }}</span>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <h3 class="title"><a href="post-details.html">{{ post.title }}.</a></h3>
+                                <div class="post-content">
+                                    <div class="post-cat">
+                                        <div class="post-cat-list">
+                                            <a class="hover-flip-item-wrapper" href="#">
+                                                <span class="hover-flip-item">
+                                                    <span data-text="{{ obj.category.name }}">{{ obj.category.name }}</span>
+                                                </span>
+                                            </a>
                                         </div>
                                     </div>
+                                    <h4 class="title">
+                                        <a href="post-details.html">{{ obj.title }} </a></h4>
                                 </div>
-                                {% endfor %}
-                                <!-- Start Post Grid  -->
                             </div>
                         </div>
                     </div>
-                    <!-- End Single Tab  -->
                 </div>
-                <!-- End Tab Content Wrapper  -->
             </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -263,12 +164,13 @@
                     <!-- Start Single Tab Content  -->
                     <div class="single-post-grid tab-pane fade show active" id="gridone" role="tabpanel">
                         <div class="row">
+                            {% for obj in popular_post %}
                             <div class="col-xl-6 col-lg-6 col-md-12 col-12">
                                 <!-- Start Post Grid  -->
                                 <div class="content-block post-grid mt--30">
                                     <div class="post-thumbnail">
                                         <a href="post-details.html">
-                                            <img src="{% static 'assets/images/post-images/lifestyle-grid-01.jpg' %}" alt="Post Images" />
+                                            <img style="height: 300px;" src="{{ obj.image.url }}" alt="Post Images" />
                                         </a>
                                     </div>
                                     <div class="post-grid-content">
@@ -288,32 +190,7 @@
                                 </div>
                                 <!-- Start Post Grid  -->
                             </div>
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-12">
-                                <!-- Start Post Grid  -->
-                                <div class="content-block post-grid mt--30">
-                                    <div class="post-thumbnail">
-                                        <a href="post-details.html">
-                                            <img src="{% static 'assets/images/post-images/lifestyle-grid-02.jpg' %}" alt="Post Images" />
-                                        </a>
-                                    </div>
-                                    <div class="post-grid-content">
-                                        <div class="post-content">
-                                            <div class="post-cat">
-                                                <div class="post-cat-list">
-                                                    <a class="hover-flip-item-wrapper" href="#">
-                                                        <span class="hover-flip-item">
-                                                            <span data-text="z">z</span>
-                                                        </span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <h4 class="title"><a href="post-details.html">Apple reimagines the iPhone experience with iOS 14</a></h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Start Post Grid  -->
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                     <!-- End Single Tab Content  -->
@@ -331,76 +208,21 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2 class="title">Featured Video</h2>
+                    <h2 class="title">Featured</h2>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-12 col-md-6 col-12">
-                <!-- Start Post List  -->
-                <div class="content-block post-default image-rounded mt--30">
-                    <div class="post-thumbnail">
-                        <a href="post-details.html">
-                            <img src="{% static 'assets/images/post-images/post-dark-01.jpg' %}" alt="Post Images" />
-                        </a>
-                        <a class="video-popup position-top-center" href="post-details.html"><span class="play-icon"></span></a>
-                    </div>
-                    <div class="post-content">
-                        <div class="post-cat">
-                            <div class="post-cat-list">
-                                <a class="hover-flip-item-wrapper" href="#">
-                                    <span class="hover-flip-item">
-                                        <span data-text="CAREERS">CAREERS</span>
-                                    </span>
-                                </a>
-                            </div>
-                        </div>
-                        <h3 class="title"><a href="post-details.html">Security isn’t just a technology problem it’s about design, too</a></h3>
-                        <div class="post-meta-wrapper">
-                            <div class="post-meta">
-                                <div class="content">
-                                    <h6 class="post-author-name">
-                                        <a class="hover-flip-item-wrapper" href="author.html">
-                                            <span class="hover-flip-item">
-                                                <span data-text="Rafayel Hasan">Rafayel Hasan</span>
-                                            </span>
-                                        </a>
-                                    </h6>
-                                    <ul class="post-meta-list">
-                                        <li>Feb 17, 2019</li>
-                                        <li>3 min read</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <ul class="social-share-transparent justify-content-end">
-                                <li>
-                                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-instagram"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fab fa-twitter"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fas fa-link"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Post List  -->
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-12 col-md-6 col-12">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
                 <div class="row">
                     <!-- Start Post List  -->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                    {% for obj in featured_blog %}
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-6">
                         <div class="content-block post-default image-rounded mt--30">
                             <div class="post-thumbnail">
                                 <a href="post-details.html">
-                                    <img src="{% static 'assets/images/post-images/post-dark-04.jpg' %}" alt="Post Images" />
+                                    <img style="height: 200px;" src="{{ obj.image.url }}" alt="Post Images" />
                                 </a>
-                                <a class="video-popup size-medium position-top-center" href="post-details.html"><span class="play-icon"></span></a>
                             </div>
                             <div class="post-content">
                                 <div class="post-cat">
@@ -416,81 +238,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End Post List  -->
-
-                    <!-- Start Post List  -->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="content-block post-default image-rounded mt--30">
-                            <div class="post-thumbnail">
-                                <a href="post-details.html">
-                                    <img src="{% static 'assets/images/post-images/post-dark-03.jpg' %}" alt="Post Images" />
-                                </a>
-                                <a class="video-popup size-medium position-top-center" href="post-details.html"><span class="play-icon"></span></a>
-                            </div>
-                            <div class="post-content">
-                                <div class="post-cat">
-                                    <div class="post-cat-list">
-                                        <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                                <span data-text="DESIGN">DESIGN</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <h5 class="title"><a href="post-details.html">Traditional design won’t save us in the COVID-19 era</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Post List  -->
-
-                    <!-- Start Post List  -->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="content-block post-default image-rounded mt--30">
-                            <div class="post-thumbnail">
-                                <a href="post-details.html">
-                                    <img src="{% static 'assets/images/post-images/post-dark-04.jpg' %}" alt="Post Images" />
-                                </a>
-                                <a class="video-popup size-medium position-top-center" href="post-details.html"><span class="play-icon"></span></a>
-                            </div>
-                            <div class="post-content">
-                                <div class="post-cat">
-                                    <div class="post-cat-list">
-                                        <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                                <span data-text="LEADERSHIP">LEADERSHIP</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <h5 class="title"><a href="post-details.html">New: Freehand Templates, built for the whole team</a></h5>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Post List  -->
-
-                    <!-- Start Post List  -->
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                        <div class="content-block post-default image-rounded mt--30">
-                            <div class="post-thumbnail">
-                                <a href="post-details.html">
-                                    <img src="{% static 'assets/images/post-images/post-dark-05.jpg' %}" alt="Post Images" />
-                                </a>
-                                <a class="video-popup size-medium position-top-center" href="post-details.html"><span class="play-icon"></span></a>
-                            </div>
-                            <div class="post-content">
-                                <div class="post-cat">
-                                    <div class="post-cat-list">
-                                        <a class="hover-flip-item-wrapper" href="#">
-                                            <span class="hover-flip-item">
-                                                <span data-text="PRODUCT UPDATES">PRODUCT UPDATES</span>
-                                            </span>
-                                        </a>
-                                    </div>
-                                </div>
-                                <h5 class="title"><a href="post-details.html">The 1 tool that helps remote teams collaborate better</a></h5>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <!-- End Post List  -->
                 </div>
             </div>
@@ -908,71 +656,6 @@
                             </div>
                             <!-- End Single Post  -->
                         </div>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_social mb--30">
-                        <h5 class="widget-title">Stay In Touch</h5>
-                        <!-- Start Post List  -->
-                        <ul class="social-icon md-size justify-content-center">
-                            <li>
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-slack"></i></a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                            </li>
-                        </ul>
-                        <!-- End Post List  -->
-                    </div>
-                    <!-- End Single Widget  -->
-
-                    <!-- Start Single Widget  -->
-                    <div class="axil-single-widget widget widget_instagram mb--30">
-                        <h5 class="widget-title">Instagram</h5>
-                        <!-- Start Post List  -->
-                        <ul class="instagram-post-list-wrapper">
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-01.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-02.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-03.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-04.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-05.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                            <li class="instagram-post-list">
-                                <a href="#">
-                                    <img src="{% static 'assets/images/small-images/instagram-06.jpg' %}" alt="Instagram Images" />
-                                </a>
-                            </li>
-                        </ul>
                         <!-- End Post List  -->
                     </div>
                     <!-- End Single Widget  -->
