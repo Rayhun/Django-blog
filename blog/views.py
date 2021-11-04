@@ -150,3 +150,16 @@ class BlogDetails(DetailView):
             user.save()
             return redirect('blog_details', pk=pk)
         return render(request, self.template_name)
+
+
+class SearchView(TemplateView):
+    template_name = 'search_page.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        query = self.request.GET.get('search')
+        context['query'] = query
+        context['all_post'] = BlogPost.objects.filter(
+            title__icontains=query
+        )
+        return context

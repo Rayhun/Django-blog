@@ -59,12 +59,13 @@
     
                             <div class="col-xl-4 col-lg-8 col-md-8 col-12">
                                 <div class="header-search d-flex flex-wrap align-items-center justify-content-center justify-content-md-end">
-                                    <form class="header-search-form">
+                                    <form class="header-search-form" method="get" action="{% url 'blog_search' %}">
                                         <div class="axil-search form-group">
                                             <button type="submit" class="search-button"><i class="fal fa-search"></i></button>
-                                            <input type="text" class="form-control" placeholder="Search" />
+                                            <input type="text" name="search" class="form-control" placeholder="Search" value="{{ request.GET.search }}">
                                         </div>
                                     </form>
+                                    {% if request.user.is_authenticated %}
                                     <ul class="metabar-block">
                                         <li class="icon">
                                             <a href="#"><i class="fas fa-bookmark"></i></a>
@@ -72,13 +73,11 @@
                                         <li class="icon">
                                             <a href="#"><i class="fas fa-bell"></i></a>
                                         </li>
-                                        {{ request.user.image }}
-                                        {% if request.user %}
                                         <li>
                                             <a href="#"><img src="{% static 'assets/images/others/author.png' %}" alt="Author Images" /></a>
                                         </li>
-                                        {% endif %}
                                     </ul>
+                                    {% endif %}
                                     <!-- Start Hamburger Menu  -->
                                     <div class="hamburger-menu d-block d-xl-none">
                                         <div class="hamburger-inner">

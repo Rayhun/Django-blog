@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.deletion import SET_NULL
+from django.db.models.deletion import CASCADE, SET_NULL
 from django.db.models.fields import CharField
 from django.views.generic.base import TemplateResponseMixin
 
@@ -50,8 +50,7 @@ class BlogPost(models.Model):
     total_view = models.PositiveBigIntegerField(default=0)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
-    last_seen = models.DateTimeField(null=True)
-    watching_time = models.IntegerField(null=True)
+    last_seen = models.DateTimeField(null=True, blank=True)
     is_hot = models.BooleanField(default=False)
     is_featured = models.BooleanField(default=False)
 
@@ -63,7 +62,7 @@ class BlogComment(models.Model):
     post = models.ForeignKey(
         BlogPost, on_delete=SET_NULL, related_name='blog', null=True
     )
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=SET_NULL)
+    parent = models.ForeignKey("self", null=True, blank=True, on_delete=CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField(max_length=255)
     mobile = models.CharField(max_length=25, blank=True)
