@@ -8,7 +8,7 @@ admin.site.register(Category, AdminCategory)
 
 
 class AdminBlogPost(admin.ModelAdmin):
-    list_display = ['author', 'title', 'category', 'total_view']
+    list_display = ['author', 'title', 'category', 'total_view', 'create_at']
 admin.site.register(BlogPost, AdminBlogPost)
 
 

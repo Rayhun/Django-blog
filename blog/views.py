@@ -30,16 +30,13 @@ class BlogHomePageView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(BlogHomePageView, self).get_context_data(**kwargs)
         context['all_post'] = self.model.objects.all()
-        context['last_post'] = self.model.objects.first()
-        context['first_four'] = self.model.objects.all()[1:6]
-        context['top_popular_post'] = self.model.objects.all().order_by(
-            '-total_view'
-        )[:1]
+        context['last_post'] = self.model.objects.last()
+        context['first_four'] = self.model.objects.all().order_by('-id')[1:5]
         context['popular_post'] = self.model.objects.all().order_by(
             '-total_view'
         )[:2]
-        context['hot_blog'] = self.model.objects.filter(is_hot=True)[:4]
-        context['featured_blog'] = self.model.objects.filter(is_featured=True)[:6]
+        context['hot_blog'] = self.model.objects.filter(is_hot=True).order_by('-id')[:4]
+        context['featured_blog'] = self.model.objects.filter(is_featured=True).order_by('-id')[:4]
         clint_ip, is_routable = get_client_ip(self.request)
         if clint_ip is None:
             clint_ip = "0.0.0.0"
@@ -91,7 +88,6 @@ class BlogHomePageView(TemplateView):
                     ass="Unknown",
                     countryCode="Unknown"
                 )
-
             my_ip = IpStore.objects.get(ip_name=clint_ip)
         context['ip_address'] = my_ip
         return context
